@@ -1,0 +1,150 @@
+/*@!Encoding:1252*/
+variables
+{
+   //Timers to generate smooth movements of the window and the wiper
+    msTimer tMoveWiper;
+    int WiperPosition      = 0; //0 = Min ; 200 = Max
+    int WiperRotation      = 0; //0=Left, 1=Right
+    int gTimerPeriod       = 100;  //ms
+    int WiperInd           = 0; //0=Wiper Off, 1=Wiper On
+    int EngineInd          = 0; //0=Engine Off, 1=Engine On
+  
+
+    msTimer tMoveWindowLeft;
+    int WindowLeftPosition = 0; //0 = Min ; 16 = Max
+    int WindowLeftDir      = 1; //1 = Up ; -1 = Down ;0 = Stop
+    
+    
+
+
+}
+
+on start
+{
+    setTimer(tMoveWiper,  gTimerPeriod);  //Timer for Wiper Movement
+    setTimer(tMoveWindowLeft, gTimerPeriod); //Timer for WindowLeft Movement
+}
+
+on timer tMoveWiper
+{   //ToDo: Implement wiper movement
+    if (WiperInd && EngineInd) {
+        if (WiperRotation) {
+            WiperPosition += 5; 
+            if (WiperPosition > 200) {
+                WiperPosition = 200;
+                WiperRotation = ~WiperRotation;
+                putValue(EnvWiperPosition, WiperPosition);
+                setTimer(tMoveWiper, gTimerPeriod); 
+            }
+            else {
+                putValue(EnvWiperPosition, WiperPosition);
+                setTimer(tMoveWiper, gTimerPeriod);     
+            }
+        }
+        else {
+            WiperPosition -= 5; 
+            if (WiperPosition < 0) {
+                WiperPosition = 0;
+                WiperRotation = ~WiperRotation;
+                putValue(EnvWiperPosition, WiperPosition);
+                setTimer(tMoveWiper, gTimerPeriod); 
+            }
+            else {
+                putValue(EnvWiperPosition, WiperPosition);
+                setTimer(tMoveWiper, gTimerPeriod);     
+            }
+        }
+    }
+    
+    else {
+         WiperPosition -= 5; 
+         if (WiperPosition < 0) {
+             WiperPosition = 0;
+             WiperRotation = ~WiperRotation;
+             putValue(EnvWiperPosition, WiperPosition);
+             setTimer(tMoveWiper, gTimerPeriod); 
+         }
+         else {
+             putValue(EnvWiperPosition, WiperPosition);
+             setTimer(tMoveWiper, gTimerPeriod);     
+         }
+    }
+        
+}
+
+on timer tMoveWindowLeft
+{   //ToDo: Implement Windowleft movement
+    if (EngineInd) {
+        if (WindowLeftDir == 1) {
+            WindowLeftPosition -= 1;
+            if (WindowLeftPosition < 0) {
+                WindowLeftPosition = 0;
+                putValue(EnvWindowLeftPosition, WindowLeftPosition);
+            }
+            else {
+                putValue(EnvWindowLeftPosition, WindowLeftPosition);
+            }
+        }
+        else if (WindowLeftDir == -1) {
+            WindowLeftPosition += 1; 
+            if (WindowLeftPosition > 16) {
+                WindowLeftPosition = 16;
+                putValue(EnvWindowLeftPosition, WindowLeftPosition);
+            }
+            else {
+                putValue(EnvWindowLeftPosition, WindowLeftPosition);
+            }
+        }
+        else {
+            putValue(EnvWindowLeftPosition, WindowLeftPosition);
+        }
+        setTimer(tMoveWindowLeft, gTimerPeriod); 
+    }
+    
+    else {
+         WindowLeftPosition -= 1; 
+         if (WindowLeftPosition < 0) {
+            WindowLeftPosition = 0;
+            putValue(EnvWindowLeftPosition, WindowLeftPosition);
+            setTimer(tMoveWindowLeft, gTimerPeriod); 
+         }
+         else {
+            putValue(EnvWindowLeftPosition, WindowLeftPosition);
+            setTimer(tMoveWindowLeft, gTimerPeriod); 
+         }
+    WindowLeftDir = 1;    
+    }
+        
+}
+
+
+on message MsgWiperCmd
+{
+    WiperInd = this.SigWiperOnOff;
+}
+
+on message MsgMotorState
+{
+    EngineInd = this.SigEngineActive;
+}
+
+on message MsgWindowLeft
+{
+    if (this.SigWindowLeftUp) {
+        WindowLeftDir = 1;
+    }
+
+    else if (this.SigWindowLeftDown) {
+        WindowLeftDir = -1;
+    }
+    else {
+        WindowLeftDir = 0;
+    }
+
+}
+on stopMeasurement
+{
+
+}
+
+

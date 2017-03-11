@@ -1,0 +1,120 @@
+/*@!Encoding:1252*/
+variables 
+{
+    int VarKeyIndication = 0;
+}
+
+on message MsgMotorState 
+{  
+   //If the motor is stopped, the buttons below will be reset 
+   if(!this.SigEngineActive)
+   {
+        putValue(EnvWiperButton,        0);
+        PutValue(EnvBlinkLeftButton,    0);
+        PutValue(EnvBlinkRightButton,   0);
+        PutValue(EnvAcceleratorPedal,getSignal(MsgMotorState::SigEngineSpeed));        
+        SetSignal(MsgMotorCmd::SigAcceleratorPosition,0 );
+        VarKeyIndication = 0;
+   }
+  // When turning on the car key, the accelerator position will be set to 750 rpm
+   else if(this.SigEngineActive && !VarKeyIndication)
+   {
+        PutValue(EnvAcceleratorPedal,getSignal(MsgMotorState::SigEngineSpeed));        
+        SetSignal(MsgMotorCmd::SigAcceleratorPosition,750 );
+        VarKeyIndication = 1;
+   }     
+   else if(this.SigEngineActive && VarKeyIndication==1 && getSignal(MsgBrakeState::SigBrakeActive))
+   {
+        PutValue(EnvAcceleratorPedal,getSignal(MsgMotorState::SigEngineSpeed));        
+   }
+}
+
+on message MsgLightState
+{
+   if(this.SigLightState)
+   {
+        putValue(EnvLightLED, 1);
+
+   }
+   else
+   {
+        putValue(EnvLightLED, 0);
+   }
+  
+    if(this.SigBlinkLeftState)
+   {
+        putValue(EnvBlinkLeftLED, 1);
+
+   }
+   else
+   {
+        putValue(EnvBlinkLeftLED, 0);
+   }
+   
+  
+       if(this.SigBlinkRightState)
+   {
+        putValue(EnvBlinkRightLED, 1);
+
+   }
+   else
+   {
+        putValue(EnvBlinkRightLED, 0);
+   }
+
+}
+
+
+on start
+{
+}
+
+// Send the alarm signal, if the alarm button is clicked
+on envVar EnvAlarmButton
+{   if (getValue(this))
+    {   PutValue(EnvBlinkLeftButton, 0);    //Reset turn light/blinker buttons
+        PutValue(EnvBlinkRightButton,0);
+    }
+    SetSignal(MsgAlarmCmd::SigAlarmOnOff, getValue(this));
+}
+
+on envVar EnvLightButton
+{  //To do: Send CAN message to LightControl ECU
+  
+   SetSignal(MsgLightCmd::SigLightOnOff,getValue(this));
+
+}
+
+// Set the engine on/off signal when the ignition switch is clicked
+on envVar EnvIgnitionSwitch
+{
+    SetSignal(MsgMotorCmd::SigEngineOnOff, getValue(this));
+}
+
+//Engine speed will be set here if the speed bar is touched (but only, if the ignition switch is on)
+on envVar EnvAcceleratorPedal
+{
+    if(getValue(EnvIgnitionSwitch))
+        SetSignal(MsgMotorCmd::SigAcceleratorPosition, getValue(this));
+}
+
+on envVar EnvBrakeSwitch
+{
+    SetSignal(MsgBrakeCmd::SigBrakeOnOff, getValue(this) && getValue(EnvIgnitionSwitch));
+}
+
+
+on envVar EnvBlinkLeftButton
+{  //To do: Send CAN message to LightControl ECU
+   SetSignal(MsgBlinkCmd::SigBlinkLeft,getValue(this));
+}
+
+on envVar EnvBlinkRightButton
+{  //To do: Send CAN message to LightControl ECU
+   SetSignal(MsgBlinkCmd::SigBlinkRight,getValue(this));
+}
+
+
+
+
+

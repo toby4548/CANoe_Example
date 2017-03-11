@@ -1,0 +1,31 @@
+/*@!Encoding:1252*/
+variables 
+{
+}
+
+on message MsgMotorState 
+{  byte oldEngineState = 0;
+
+  // Motorstate received
+  if(this.dir!=TXREQUEST) 
+  {
+    putValue(EnvMotor,this.SigEngineOnOff);
+    putValue(EnvEngineSpeedMonitor,this.SigEngineSpeed);
+
+    if (this.SigEngineOnOff != oldEngineState)
+    {   write("Engine state has changed to %d\n", this.SigEngineOnOff);
+        oldEngineState = this.SigEngineOnOff;
+    }
+  }
+}
+
+on start
+{
+  CallAllOnEnvVar();    // call all envvar procedures of this model and
+                        // thus consider the START VALUES of all environment
+                        // variables for:  
+                        //  - initialization of all message variables
+                        //  - starting of any timers
+                        //  - sending messages (output) with start values
+}
+

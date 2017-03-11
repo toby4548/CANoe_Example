@@ -1,0 +1,111 @@
+/*@!Encoding:1252*/
+variables 
+{
+    // Alarm and blink timer
+    msTimer tBlinkFrequencyTimer;
+    int BlinkTimerPeriod   = 500;  //Period of the blink timer in ms
+    int BlinkToggle        = 0;    //Toggled by the timer to let the turn lights blink
+    
+    int AlarmInd            = 0;  
+    int BlinkInd            = 0;
+     
+    int LightInd            = 0;    //Stores state of head and park lights
+    int BlinkLeftInd        = 0;    //Stores state of left  blink light
+    int BlinkRightInd       = 0;    //Stores state of right blink light
+    int EngineInd           = 0;    //Stores state of engine
+}
+
+on start
+{
+    // Start the timer to generate the blink frequency
+    SetTimer(tBlinkFrequencyTimer, BlinkTimerPeriod);
+}
+
+// Timer to set the Blink Signal
+on timer tBlinkFrequencyTimer
+{   //Toggle (blink) the turn lights
+    BlinkToggle = ~BlinkToggle;
+
+    //Update the park lights, head lights and turn lights of the car image the Display window
+    SetLight(LightInd, LightInd && EngineInd, BlinkLeftInd && BlinkToggle, BlinkRightInd && BlinkToggle);
+
+    SetSignal(MsgLightState::SigBlinkLeftActive,  BlinkLeftInd  && BlinkToggle);
+    SetSignal(MsgLightState::SigBlinkRightActive, BlinkRightInd && BlinkToggle);
+
+    //Retrigger timer
+    SetTimer(tBlinkFrequencyTimer, BlinkTimerPeriod);
+}
+
+// Set the blink indication variables
+on message MsgBlinkCmd
+{
+    BlinkLeftInd  = this.SigBlinkLeftCmd  || AlarmInd;
+    BlinkRightInd = this.SigBlinkRightCmd || AlarmInd;
+
+    //Set signals in message MsgBlinkState, which is send back to the Dashboard ECU
+    SetSignal(MsgLightState::SigBlinkLeftActive,  BlinkLeftInd);
+    SetSignal(MsgLightState::SigBlinkRightActive, BlinkRightInd);
+}
+
+// Set the alarm indication variable
+on message MsgAlarmCmd
+{   
+    AlarmInd        = this.SigAlarmOnOff;
+    BlinkLeftInd    = AlarmInd;
+    BlinkRightInd   = AlarmInd;
+}
+
+// Set the light indication variable and turn head and park lights on/off
+on message MsgLightCmd
+{
+    LightInd = this.SigLightOnOff;
+    
+    //Display current state of lights, the logical AND ensures, that head light 
+    //are on only if the engine is on
+    SetLight(LightInd, LightInd && EngineInd, BlinkLeftInd && BlinkToggle, BlinkRightInd && BlinkToggle);
+
+    //Set signal in message MsgLightState, which is send back to the Dashboard ECU
+    SetSignal(MsgLightState::SigLightActive, LightInd);
+}
+
+// Store current engine state
+on message MsgMotorState
+{   EngineInd = this.SigEngineActive;
+}
+
+// This function actually sets the head, blink and park lights
+// Set the respective parameter to 1 to turn the light on and to 0 to turn it off
+// !!!!! DO NOT CHANGE THIS FUNCTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+SetLight (int ParkLight, int HeadLights, int BlinkLightLeft, int BlinkLightRight)
+{  
+    putValue(EnvParkLight,ParkLight);                   //Set park light
+
+    if (HeadLights && BlinkLightLeft)                   //Set left head and left blink light
+    {   putValue(EnvHeadAndTurnLightLeft,6);
+    } else if (HeadLights)
+    {   putValue(EnvHeadAndTurnLightLeft,4);
+    } else if (BlinkLightLeft)
+    {   putValue(EnvHeadAndTurnLightLeft,2);
+    } else
+    {   putValue(EnvHeadAndTurnLightLeft,0);
+    }
+
+    if (HeadLights && BlinkLightRight)                  //Set right head and right blink light
+    {   putValue(EnvHeadAndTurnLightRight,5);
+    } else if (HeadLights)
+    {   putValue(EnvHeadAndTurnLightRight,4);
+    } else if (BlinkLightRight)
+    {   putValue(EnvHeadAndTurnLightRight,1);
+    } else
+    {   putValue(EnvHeadAndTurnLightRight,0);
+    }
+}
+
+/* Value table for EnvHeadAndTurnLightRight/Left
+    Left  Right
+    0       0   ... Head light off    -   Turn light off
+    2       1   ... Head light off    -   Turn light on
+    4       4   ... Head light on     -   Turn light off
+    6       5   ... Head light on     -   Turn light on
+*/
+

@@ -1,0 +1,32 @@
+/*@!Encoding:1252*/
+variables
+{
+  const long kOFF = 0;
+  const long kON =  1;
+
+  int curMotorState = 0;
+}
+
+on message MsgLightState
+{
+  if((this.SigLightOnOff == kON) && (curMotorState))
+  {
+        if(this.SigAlarmSignal == kON)  
+            PutValue(EnvLightDsp,7);
+        else if(this.SigAlarmSignal == kOFF)  
+            PutValue(EnvLightDsp,4);
+   }
+  else /*if(this.LightOnOff == kOFF)*/
+  {
+        if(this.SigAlarmSignal == kON)  
+            PutValue(EnvLightDsp,3);
+        else if(this.SigAlarmSignal == kOFF)  
+            PutValue(EnvLightDsp,0);
+   }
+   putValue(EnvParkLight, this.SigLightOnOff);
+}
+
+on message MsgMotorState
+{   curMotorState = this.SigEngineOnOff;
+}
+

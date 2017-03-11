@@ -1,0 +1,72 @@
+/*@!Encoding:1252*/
+includes
+{
+  /* You can source out constants, variables and functions 
+     that are needed identically in multiple CAPL programs.*/
+  //#include "..\CAPL Includes\DoorInclFile.CIN"  // identically CAPL-Code of Door ECU's 
+}
+
+variables
+{
+    mstimer tMoveSpeedDownTimer;
+    int gSpeedTimerFrequency    =   10;  //ms
+    int gMoveSpeedDown          =   0;
+    int cMoveTime               =   100;
+    int VarSpeed                =   0;          
+}
+
+on start
+{
+    //The timer MoveSpeedDown will be started when the simulation starts
+    setTimer(tMoveSpeedDownTimer,cMoveTime); 
+}
+
+//Timer to move down the speed when the brake is active
+on timer tMoveSpeedDownTimer
+{
+    if(VarSpeed > 750 && gMoveSpeedDown)
+    {  
+        VarSpeed-=10;
+        SetSignal(MsgMotorState::SigEngineSpeed,VarSpeed);
+        SetSignal(MsgBrakeState::SigBrakeActive,1);
+    } else
+    {   
+        SetSignal(MsgBrakeState::SigBrakeActive,0);
+    }       
+    SetTimer(tMoveSpeedDownTimer,gSpeedTimerFrequency);
+}
+
+//This function will be called, when the brake pedal is activated 
+on message MsgBrakeCmd
+{
+    //Get the actual speed
+    VarSpeed = getSignal(MsgMotorCmd::SigAcceleratorPosition);
+    
+    if(getSignal(MsgMotorState::SigEngineActive))
+    {
+        if(this.SigBrakeOnOff)
+        {   
+            gMoveSpeedDown = 1;
+        } else
+        {   
+            gMoveSpeedDown = 0;
+        }
+   } 
+}
+
+//This function will be called, when the MotorCmd message is received.
+//Setting the signals in MsgMotorState will trigger this message
+on message MsgMotorCmd
+{
+    if(this.SigEngineOnOff)
+    {  
+        SetSignal(MsgMotorState::SigEngineActive, 1);
+        SetSignal(MsgMotorState::SigEngineSpeed,  getSignal(MsgMotorCmd::SigAcceleratorPosition));
+    } 
+    else
+    {  
+        SetSignal(MsgMotorState::SigEngineActive, 0);
+        SetSignal(MsgMotorState::SigEngineSpeed,  0);
+    }
+}
+

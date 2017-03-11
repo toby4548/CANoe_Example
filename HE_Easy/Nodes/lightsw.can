@@ -1,0 +1,60 @@
+/*@!Encoding:1252*/
+variables 
+{
+  msTimer tTurnLightFrequency;
+  int gTurnLightFrequency = 500;
+  int gTurnLightStatus = 0;
+}
+
+on envvar EnvLightSwitch
+{
+  // assign EV value to the message signal
+    setSignal(MsgLightState::SigLightOnOff,getValue(this));
+}
+
+on start
+{
+}
+
+
+on envVar EnvTurnSignal
+{
+  if(getValue(this))
+  {
+    gTurnLightStatus = 1;
+    setSignal(MsgLightState::SigAlarmSignal, gTurnLightStatus);
+    setTimer(tTurnLightFrequency, gTurnLightFrequency);
+  }
+  else
+  {
+    cancelTimer(tTurnLightFrequency);
+	  gTurnLightStatus = 0;
+    setSignal(MsgLightState::SigAlarmSignal, gTurnLightStatus);
+  }
+}
+
+on timer tTurnLightFrequency
+{
+  gTurnLightStatus = (gTurnLightStatus == 1 ? 0 : 1);
+  SetSignal(MsgLightState::SigAlarmSignal, gTurnLightStatus);
+  SetTimer(tTurnLightFrequency, gTurnLightFrequency);
+}
+
+on key '0'
+{
+  setwriteDbgLevel(0);
+}
+
+on key '1'
+{
+  setwriteDbgLevel(1);
+}
+
+// Flash the lights when the 'f' key is pressed
+on key 'f'
+{   message MsgLightState msg1;
+
+    msg1.SigLightOnOff = 1;
+    output(msg1);
+}
+

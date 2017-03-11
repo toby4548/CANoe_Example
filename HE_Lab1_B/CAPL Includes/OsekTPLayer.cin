@@ -1,0 +1,128 @@
+/*@@var:*/
+variables
+{
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_DataReq(byte[]):*///function
+_OSEKTL_DataReq( byte data[]) 
+{
+  /* The diagnostics layer transports data via a 
+     CAPL callback interface. */
+
+  byte val1;
+
+  writeDbgLevel(1,"%s: _OSEKTL_DataReq", gECU);
+
+  if( elcount( data) >= 2)  val1 = data[1];
+  else  val1 = 0;
+
+  writeDbgLevel(1,"%s: Send %d bytes: %02x %02x ...", gECU, elcount( data), data[0], val1);
+  OSEKTL_DataReq( data, elcount( data));
+  writeDbgLevel(1,"%s: Done.", gECU);
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_GetSrcAdr():*///function
+long _OSEKTL_GetSrcAdr() 
+{
+  /* This Function returns the source address 
+     of the last received message */
+
+  writeDbgLevel(1,"%s: _OSEKTL_GetSrcAdr", gECU);
+
+  return OSEKTL_GetSrcAdr();
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_SetAdrMode(long):*///function
+_OSEKTL_SetAdrMode( long mode) 
+{
+  writeDbgLevel(1,"%s: _OSEKTL_SetAdrMode", gECU);
+
+  switch( mode) 
+  {
+    case 0:	OSEKTL_SetNrmlMode(); break;  /* Toggles to normal addressing */ 
+    case 1:	OSEKTL_SetExtMode();  break;  /* Toggles to extended addressing */
+    case 2:	OSEKTL_SetNrFixMode();  break;/* Toggles to normalfixed addressing */ 
+    case 3:	OSEKTL_SetMixedMode();  break;/* Toggles to mixed addressing */ 
+  }
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_SetEcuAdr(byte):*///function
+_OSEKTL_SetEcuAdr( BYTE adr) 
+{
+  writeDbgLevel(1,"%s: _OSEKTL_SetEcuAdr", gECU);
+
+  /* This function will set the controller address */ 
+  OSEKTL_SetEcuNumber( adr);
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_SetRxId(dword):*///function
+_OSEKTL_SetRxId( dword rxID) 
+{
+  writeDbgLevel(1,"%s: _OSEKTL_SetRxId", gECU);
+
+  /* This function will set the receive ID */
+  OSEKTL_SetRxId( rxID);
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_SetTgtAdr(byte):*///function
+_OSEKTL_SetTgtAdr( BYTE adr) 
+{
+  /* This function will set the target address */
+  writeDbgLevel(1,"%s: _OSEKTL_SetTgtAdr", gECU);
+
+  OSEKTL_SetTgtAdr( adr);
+}
+/*@@end*/
+
+/*@@caplFunc:_OSEKTL_SetTxId(dword):*///function
+_OSEKTL_SetTxId( dword txID) 
+{
+  writeDbgLevel(1,"%s: _OSEKTL_SetTxId", gECU);
+
+  /* This function will set the target address */
+  OSEKTL_SetTxId( txID);
+}
+/*@@end*/
+
+/*@@caplFunc:OSEKTL_ErrorInd(int):*///callback
+OSEKTL_ErrorInd( int error) 
+{
+  /* This function returns error messages */
+  writeDbgLevel(1,"%s: OSEKTL_ErrorInd", gECU);
+
+  Diag_ErrorInd( error);
+}
+/*@@end*/
+
+/*@@caplFunc:OSEKTL_DataInd(long):*///callback
+OSEKTL_DataInd( long count) 
+{
+  /* This function returns the number of data received */
+
+  byte rxBuffer[4096];
+
+  writeDbgLevel(1,"%s: OSEKTL_DataInd", gECU);
+
+  OSEKTL_GetRxData( rxBuffer, count);
+  Diag_DataInd( rxBuffer, count, OSEKTL_GetSrcAdr());
+}
+/*@@end*/
+
+/*@@caplFunc:OSEKTL_DataCon(long):*///callback
+OSEKTL_DataCon( long count) 
+{
+  /* This function returns the number 
+  of data succsessfully sent */
+
+  writeDbgLevel(1,"%s: OSEKTL_DataCon", gECU);
+
+  Diag_DataCon( count);
+}
+/*@@end*/
+

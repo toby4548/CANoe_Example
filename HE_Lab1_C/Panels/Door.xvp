@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="Window position">
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl1" Children="Controls" ControlName="ElemFrame">
+      <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI0" ControlName="Sig:WN_Position">
+        <Property Name="Name">SwitchControlBSI0</Property>
+        <Property Name="Size">440, 105</Property>
+        <Property Name="Location">16, 18</Property>
+        <Property Name="StateCnt">17</Property>
+        <Property Name="SwitchValues">1;17;0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16</Property>
+        <Property Name="TransparentColor">3, 2, 1</Property>
+        <Property Name="ImageFile">Bitmaps\FrontWindow.bmp</Property>
+        <Property Name="SymbolConfiguration">1;1;;;;EnvWindowLeftPosition</Property>
+        <Property Name="TabIndex">0</Property>
+        <Property Name="ReadOnlyControl">True</Property>
+      </Object>
+      <Property Name="Name">GroupBoxControl1</Property>
+      <Property Name="Size">474, 140</Property>
+      <Property Name="Location">10, 9</Property>
+      <Property Name="BackColor">Silver</Property>
+      <Property Name="Font">Microsoft Sans Serif, 8pt, style=Bold</Property>
+      <Property Name="Text">Driver</Property>
+      <Property Name="ForeColor">Black</Property>
+      <Property Name="TabIndex">1</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">488, 157</Property>
+    <Property Name="BackColor">Silver</Property>
+    <Property Name="Panel">Panel</Property>
+  </Object>
+</Panel>

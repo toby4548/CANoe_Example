@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="Control">
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="StaticTextControl0" ControlName="ElemST" Children="Controls">
+      <Property Name="Name">StaticTextControl0</Property>
+      <Property Name="Size">63,17</Property>
+      <Property Name="Location">190,23</Property>
+      <Property Name="BackColor">231,231,231</Property>
+      <Property Name="Font">Microsoft Sans Serif, 8pt</Property>
+      <Property Name="TextAlign">TopCenter</Property>
+      <Property Name="BorderStyle">None</Property>
+      <Property Name="Text">Alarm signal</Property>
+      <Property Name="ForeColor">0,0,0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI1" ControlName="EnvVar:EnvLightSwitch">
+      <Property Name="Name">SwitchControlBSI1</Property>
+      <Property Name="Size">54,29</Property>
+      <Property Name="Location">195,45</Property>
+      <Property Name="ImageFile">Bitmaps\lButtonQuadratic.bmp</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvTurnSignal</Property>
+      <Property Name="TransparentColor">3,2,1</Property>
+      <Property Name="StateCnt">2</Property>
+      <Property Name="Activation">Left</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="StaticTextControl2" ControlName="ElemST" Children="Controls">
+      <Property Name="Name">StaticTextControl2</Property>
+      <Property Name="Size">41,17</Property>
+      <Property Name="Location">135,20</Property>
+      <Property Name="BackColor">231,231,231</Property>
+      <Property Name="Font">Microsoft Sans Serif, 8pt</Property>
+      <Property Name="TextAlign">TopLeft</Property>
+      <Property Name="BorderStyle">None</Property>
+      <Property Name="Text">Driving</Property>
+      <Property Name="ForeColor">0,0,0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI3" ControlName="EnvVar:EnvLightSwitch">
+      <Property Name="Name">SwitchControlBSI3</Property>
+      <Property Name="Size">30,30</Property>
+      <Property Name="Location">140,45</Property>
+      <Property Name="ImageFile">Bitmaps\lButtonQuadratic_2.bmp</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvLightSwitch</Property>
+      <Property Name="StateCnt">2</Property>
+      <Property Name="Activation">Left</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI4">
+      <Property Name="Name">SwitchControlBSI4</Property>
+      <Property Name="Size">35,34</Property>
+      <Property Name="Location">42,34</Property>
+      <Property Name="ImageFile">Bitmaps\lRealIgnit_3.bmp</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvMotorSwitch</Property>
+      <Property Name="StateCnt">2</Property>
+      <Property Name="Activation">Left</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.TrackBarControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="TrackBarControl5" ControlName="ControlSpeedEntry">
+      <Property Name="Name">TrackBarControl5</Property>
+      <Property Name="Size">238,68</Property>
+      <Property Name="Location">17,111</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvSpeedEntry</Property>
+      <Property Name="Minimum">0</Property>
+      <Property Name="MinimumDouble">0</Property>
+      <Property Name="Maximum">3500</Property>
+      <Property Name="MaximumDouble">3500</Property>
+      <Property Name="SmallChange">10</Property>
+      <Property Name="SmallChangeDouble">10</Property>
+      <Property Name="Orientation">0</Property>
+      <Property Name="ReadOnlyControl">False</Property>
+      <Property Name="DisplayMinMax">True</Property>
+      <Property Name="TickFrequency">350</Property>
+      <Property Name="TickFrequencyDouble">350</Property>
+      <Property Name="BackColor">231,231,231</Property>
+      <Property Name="LargeChange">10</Property>
+      <Property Name="LargeChangeDouble">10</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvSpeedEntry</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl6" ControlName="ElemFrame" Children="Controls">
+      <Property Name="Name">GroupBoxControl6</Property>
+      <Property Name="Size">260,105</Property>
+      <Property Name="Location">10,90</Property>
+      <Property Name="Font">Microsoft Sans Serif, 8pt, style=Bold</Property>
+      <Property Name="Text">Engine Speed</Property>
+      <Property Name="ForeColor">0,0,0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl7" ControlName="ElemFrame" Children="Controls">
+      <Property Name="Name">GroupBoxControl7</Property>
+      <Property Name="Size">151,83</Property>
+      <Property Name="Location">119,3</Property>
+      <Property Name="Font">Microsoft Sans Serif, 8pt, style=Bold</Property>
+      <Property Name="Text">Light Switches</Property>
+      <Property Name="ForeColor">0,0,0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=7.2.36.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl8" ControlName="ElemFrame" Children="Controls">
+      <Property Name="Name">GroupBoxControl8</Property>
+      <Property Name="Size">110,83</Property>
+      <Property Name="Location">6,3</Property>
+      <Property Name="Font">Microsoft Sans Serif, 9pt, style=Bold</Property>
+      <Property Name="Text">Ignition Switch</Property>
+      <Property Name="ForeColor">0,0,0</Property>
+    </Object>
+    <Property Name="Panel">Panel</Property>
+    <Property Name="Size">283,208</Property>
+    <Property Name="BackColor">229,229,229</Property>
+  </Object>
+</Panel>

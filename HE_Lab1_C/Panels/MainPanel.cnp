@@ -1,0 +1,21 @@
+VPanel 22 247 118 0 0 255"MainPanel"
+255 255 255
+16
+ElemPanelCtrlBN 10 14 111 26 easy::BodyControl <PE>
+ -13 0 0 0 700 0 0 0 0 0 0 0 0 "Courier New"0"BodyControl"
+~
+ElemPanelCtrlBN 10 45 111 26 easy::Dashboard <PE>
+ -13 0 0 0 700 0 0 0 0 0 0 0 0 "Courier New"0"Dashboard"
+~
+ElemPanelCtrlBN 126 14 111 26 easy::LightControl <PE>
+ -13 0 0 0 700 0 0 0 0 0 0 0 0 "Courier New"0"LightControl"
+~
+ElemPanelCtrlBN 126 45 111 26 easy::MotorControl <PE>
+ -13 0 0 0 700 0 0 0 0 0 0 0 0 "Courier New"0"MotorControl"
+~
+ElemPanelCtrlBN 10 87 111 26 Close <PE>
+ -13 0 0 0 700 0 0 0 0 0 0 0 0 "Courier New"1"Close all"
+~
+@
+
+

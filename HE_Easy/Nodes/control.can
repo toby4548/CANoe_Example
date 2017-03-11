@@ -1,0 +1,50 @@
+/*@!Encoding:1252*/
+/*
+variables
+{
+  const long kOFF = 0;
+  const long kON =  1;
+}
+*/
+
+/*
+on message MsgLightState
+{
+    SetLightDsp(this.LightOnOff,this.AlarmSignal);
+}
+*/
+
+on envvar EnvMotorSwitch
+{
+  if(getValue(this) == 0)
+  {  SetSignal(MsgMotorState::SigEngineOnOff,0);
+     SetSignal(MsgMotorState::SigEngineSpeed,0);
+  } else
+  {  SetSignal(MsgMotorState::SigEngineOnOff,1);
+     SetSignal(MsgMotorState::SigEngineSpeed, getValue(EnvSpeedEntry));
+  }
+}
+
+on envvar EnvSpeedEntry
+{
+  if(getValue(EnvMotorSwitch))
+    SetSignal(MsgMotorState::SigEngineSpeed,getValue(this));
+}
+
+
+/*
+SetLightDsp (long light, long trunInd)
+{
+  if(light == kON)
+  {
+      if(trunInd == kON)  PutValue(EnvLightDsp,7);
+      else if(trunInd == kOFF)  PutValue(EnvLightDsp,4);
+   }
+  else if(light == kOFF)
+  {
+    if(trunInd == kON)  PutValue(EnvLightDsp,3);
+    else if(trunInd == kOFF)  PutValue(EnvLightDsp,0);
+  }
+}
+*/
+

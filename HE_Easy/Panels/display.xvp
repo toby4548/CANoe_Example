@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="Panel" Children="Controls" ControlName="Display">
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="LCDControl5" ControlName="MotorSpeedDisplayAnalog">
+      <Property Name="Name">LCDControl5</Property>
+      <Property Name="Size">95, 30</Property>
+      <Property Name="Location">104, 48</Property>
+      <Property Name="NumberIntDigits">4</Property>
+      <Property Name="DecimalPlaces">0</Property>
+      <Property Name="ColorOn">Lime</Property>
+      <Property Name="ColorOff">0, 60, 0</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvEngineSpeedMonitor</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI6" ControlName="MotorStateDisplay">
+      <Property Name="Name">SwitchControlBSI6</Property>
+      <Property Name="Size">64, 68</Property>
+      <Property Name="Location">250, 30</Property>
+      <Property Name="StateCnt">2</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="ImageFile">Bitmaps\motor_2.bmp</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvMotor</Property>
+      <Property Name="TabIndex">6</Property>
+      <Property Name="ReadOnlyControl">True</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.MeterControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="MeterControl7" ControlName="MotorSpeedDisplayAnalog">
+      <Property Name="Name">MeterControl7</Property>
+      <Property Name="Size">75, 75</Property>
+      <Property Name="Location">21, 24</Property>
+      <Property Name="ScaleMax">3500</Property>
+      <Property Name="SweepAngleFrom">-125</Property>
+      <Property Name="SweepAngleTo">95</Property>
+      <Property Name="NeedleColor">Red</Property>
+      <Property Name="AlarmLowerColor">Blue</Property>
+      <Property Name="AlarmLowerLimit">0</Property>
+      <Property Name="AlarmUpperLimit">0</Property>
+      <Property Name="SymbolConfiguration">1;1;;;;EnvEngineSpeedMonitor</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.PictureBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="PictureBoxControl8" ControlName="ElemSBM">
+      <Property Name="Name">PictureBoxControl8</Property>
+      <Property Name="Size">81, 81</Property>
+      <Property Name="Location">16, 19</Property>
+      <Property Name="ImageFile">Bitmaps\SpeedMeter.bmp</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl9" Children="Controls" ControlName="ElemFrame">
+      <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI3" ControlName="EnvVar:EnvBulb">
+        <Property Name="Name">SwitchControlBSI3</Property>
+        <Property Name="Size">98, 78</Property>
+        <Property Name="Location">225, 211</Property>
+        <Property Name="StateCnt">8</Property>
+        <Property Name="SwitchValues">1;8;0;1;2;3;4;5;6;7</Property>
+        <Property Name="ImageFile">Bitmaps\BFL.bmp</Property>
+        <Property Name="SymbolConfiguration">1;1;;;;EnvLightDsp</Property>
+        <Property Name="TabIndex">3</Property>
+        <Property Name="ReadOnlyControl">True</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="SwitchControlBSI2" ControlName="EnvVar:EnvBulb">
+        <Property Name="Name">SwitchControlBSI2</Property>
+        <Property Name="Size">42, 99</Property>
+        <Property Name="Location">68, 175</Property>
+        <Property Name="StateCnt">8</Property>
+        <Property Name="SwitchValues">1;8;0;1;2;3;4;5;6;7</Property>
+        <Property Name="ImageFile">Bitmaps\BFR.bmp</Property>
+        <Property Name="SymbolConfiguration">1;1;;;;EnvLightDsp</Property>
+        <Property Name="TabIndex">2</Property>
+        <Property Name="ReadOnlyControl">True</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="LEDControl2" ControlName="LED Control">
+        <Property Name="Name">LEDControl2</Property>
+        <Property Name="Size">24, 24</Property>
+        <Property Name="Location">212, 319</Property>
+        <Property Name="UsedLEDColorOn">Yellow</Property>
+        <Property Name="UsedLEDColorOff">LightGray</Property>
+        <Property Name="SymbolConfiguration">4;1;easy;;;EnvParkLight;1;;;-1</Property>
+        <Property Name="TabIndex">0</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="LEDControl1" ControlName="LED Control">
+        <Property Name="Name">LEDControl1</Property>
+        <Property Name="Size">24, 24</Property>
+        <Property Name="Location">68, 293</Property>
+        <Property Name="UsedLEDColorOn">Yellow</Property>
+        <Property Name="UsedLEDColorOff">LightGray</Property>
+        <Property Name="SymbolConfiguration">4;1;easy;;;EnvParkLight;1;;;-1</Property>
+        <Property Name="TabIndex">0</Property>
+      </Object>
+      <Object Type="Vector.CANalyzer.Panels.Design.PictureBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="PictureBoxControl4" ControlName="ElemSBM">
+        <Property Name="Name">PictureBoxControl4</Property>
+        <Property Name="Size">468, 354</Property>
+        <Property Name="Location">24, 28</Property>
+        <Property Name="TransparentColor">3, 2, 1</Property>
+        <Property Name="ImageFile">Bitmaps\Background.bmp</Property>
+      </Object>
+      <Property Name="Name">GroupBoxControl9</Property>
+      <Property Name="Size">489, 382</Property>
+      <Property Name="Location">5, 112</Property>
+      <Property Name="BackColor">229, 229, 229</Property>
+      <Property Name="Font">Microsoft Sans Serif, 8pt, style=Bold</Property>
+      <Property Name="Text">Driving Light </Property>
+      <Property Name="ForeColor">Black</Property>
+      <Property Name="TabIndex">9</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl10" ControlName="ElemFrame">
+      <Property Name="Name">GroupBoxControl10</Property>
+      <Property Name="Size">150, 105</Property>
+      <Property Name="Location">217, 4</Property>
+      <Property Name="BackColor">229, 229, 229</Property>
+      <Property Name="Font">Microsoft Sans Serif, 9pt, style=Bold</Property>
+      <Property Name="Text">Motor State</Property>
+      <Property Name="ForeColor">Black</Property>
+      <Property Name="TabIndex">10</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.GroupBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=8.5.98.0, Culture=neutral, PublicKeyToken=null" Name="GroupBoxControl11" ControlName="ElemFrame">
+      <Property Name="Name">GroupBoxControl11</Property>
+      <Property Name="Size">208, 105</Property>
+      <Property Name="Location">5, 3</Property>
+      <Property Name="BackColor">229, 229, 229</Property>
+      <Property Name="Font">Microsoft Sans Serif, 9pt, style=Bold</Property>
+      <Property Name="Text">Engine Speed</Property>
+      <Property Name="ForeColor">Black</Property>
+      <Property Name="TabIndex">11</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">500, 501</Property>
+    <Property Name="BackColor">229, 229, 229</Property>
+    <Property Name="Panel">Panel</Property>
+  </Object>
+</Panel>

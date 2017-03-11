@@ -1,0 +1,50 @@
+/*@!Encoding:1252*/
+variables 
+{
+    int VarKeyIndication = 0;
+}
+
+on message MsgMotorState 
+{  
+   //If the motor is stopped, the buttons below will be reset 
+   if(!this.SigEngineActive)
+   {
+        PutValue(EnvAcceleratorPedal,getSignal(MsgMotorState::SigEngineSpeed));        
+        SetSignal(MsgMotorCmd::SigAcceleratorPosition,0 );
+        VarKeyIndication = 0;
+   }
+  // When turning on the car key, the accelerator position will be set to 750 rpm
+   else if(this.SigEngineActive && !VarKeyIndication)
+   {
+        PutValue(EnvAcceleratorPedal,getSignal(MsgMotorState::SigEngineSpeed));        
+        SetSignal(MsgMotorCmd::SigAcceleratorPosition,750 );
+        VarKeyIndication = 1;
+   }     
+   else if(this.SigEngineActive && VarKeyIndication==1 && getSignal(MsgBrakeState::SigBrakeActive))
+   {
+        PutValue(EnvAcceleratorPedal,getSignal(MsgMotorState::SigEngineSpeed));        
+   }
+}
+
+on start
+{
+}
+
+// Set the engine on/off signal when the ignition switch is clicked
+on envVar EnvIgnitionSwitch
+{
+    SetSignal(MsgMotorCmd::SigEngineOnOff, getValue(this));
+}
+
+//Engine speed will be set here if the speed bar is touched (but only, if the ignition switch is on)
+on envVar EnvAcceleratorPedal
+{
+    if(getValue(EnvIgnitionSwitch))
+        SetSignal(MsgMotorCmd::SigAcceleratorPosition, getValue(this));
+}
+
+on envVar EnvBrakeSwitch
+{
+    SetSignal(MsgBrakeCmd::SigBrakeOnOff, getValue(this) && getValue(EnvIgnitionSwitch));
+}
+
